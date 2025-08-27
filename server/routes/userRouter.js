@@ -1,11 +1,12 @@
 import express from 'express';
-import { syncAdmin } from '../controller/syncCntrl/sync.js';
+import { getAPI, syncAdmin } from '../controller/syncCntrl/sync.js';
 
 
 
 const router = express.Router();
 
-router.post('/admin',syncAdmin)
+router.post('/admin',syncAdmin);
+router.get('/get',getAPI)
 
 
 

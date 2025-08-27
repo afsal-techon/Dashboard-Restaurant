@@ -21,6 +21,17 @@ export const syncAdmin =async (req,res,next)=>{
     }
 }
 
+export const getAPI =async (req,res,next)=>{
+    try {
+   
+  return  res.status(200).json({ success: true ,message:'ok done' });
+        
+    } catch (err) {
+        next(err)
+    }
+}
+
+
 
 
 
