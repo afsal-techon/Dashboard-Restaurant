@@ -204,3 +204,50 @@ export const syncCategory =async (req,res,next)=>{
     }
 }
 
+export const syncMenuType =async (req,res,next)=>{
+    try {
+
+    const menuType = req.body;
+
+       const bulkOps = menuType.map(ct => ({
+       updateOne: {
+        filter: { _id: new mongoose.Types.ObjectId(ct._id) }, // use same _id offline + online
+        update: { $set: ct },
+        upsert: true
+      }
+
+    }));
+
+    // Execute bulkWrite
+    await MENU_TYPE.bulkWrite(bulkOps);
+
+    res.status(200).json({ success: true });
+        
+    } catch (err) {
+        next(err)
+    }
+}
+
+export const syncFood =async (req,res,next)=>{
+    try {
+
+    const food = req.body;
+
+       const bulkOps = food.map(ct => ({
+       updateOne: {
+        filter: { _id: new mongoose.Types.ObjectId(ct._id) }, // use same _id offline + online
+        update: { $set: ct },
+        upsert: true
+      }
+
+    }));
+
+    // Execute bulkWrite
+    await FOOD.bulkWrite(bulkOps);
+
+    res.status(200).json({ success: true });
+        
+    } catch (err) {
+        next(err)
+    }
+}
