@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAPI, syncAdmin, syncCategory, syncCustomerTypes, syncFloors, syncFood, syncKitchen, syncMenuType, syncNormalUser, syncRestaurnat, syncTables } from '../controller/syncCntrl/sync.js';
+import { getAPI, syncAccounts, syncAdmin, syncCategory, syncCombo, syncComboGroups, syncCustomer, syncCustomerTypes, syncFloors, syncFood, syncIngredients, syncKitchen, syncMenuType, syncNormalUser, syncOrders, syncPaymentRecord, syncRestaurnat, syncSupplier, syncTables, syncTransaction } from '../controller/syncCntrl/sync.js';
 import multer from 'multer';
 import path from 'path';
 
@@ -36,8 +36,15 @@ router.post('/kitchen',syncKitchen)
 router.post('/normal-user',syncNormalUser)
 router.post('/category',syncCategory);
 router.post('/menu-type',syncMenuType)
-router.post('/food',syncFood)
-
-
+router.post('/food',syncFood);
+router.post('/combo',syncCombo);
+router.post('/combo-group',syncComboGroups)
+router.post('/customer',syncCustomer)
+router.post('/orders',syncOrders);
+router.post('/payment-record',syncPaymentRecord);
+router.post('/transaction',syncTransaction);
+router.post('/account',syncAccounts);
+router.post('/supplier',syncSupplier)
+router.post('/ingredient',syncIngredients)
 
 export default router;
