@@ -16,7 +16,12 @@ import COMBO from '../../models/combo.js';
 import COMBO_GROUP from '../../models/comboGroup.js';
 import ACCOUNTS from '../../models/account.js';
 import SUPPLIER from '../../models/supplier.js';
-import INGREDIENTS from '../../models/ingredients.js'
+import INGREDIENTS from '../../models/ingredients.js';;
+import PURCHASE from '../../models/purchase.js';
+import EXPENSE from '../../models/expense.js'
+import RIDER from '../../models/Riders.js';
+import PARTNER from '../../models/partner.js'
+import DEVIDEND from '../../models/dividentPay.js'
 import mongoose from 'mongoose';
 
 
@@ -475,6 +480,132 @@ export const syncSupplier =async (req,res,next)=>{
 
     // Execute bulkWrite
     await SUPPLIER.bulkWrite(bulkOps);
+
+    res.status(200).json({ success: true });
+        
+    } catch (err) {
+        next(err)
+    }
+}
+
+
+export const syncPurchase =async (req,res,next)=>{
+    try {
+
+    const purchase = req.body;
+
+       const bulkOps = purchase.map(ct => ({
+       updateOne: {
+        filter: { _id: new mongoose.Types.ObjectId(ct._id) }, // use same _id offline + online
+        update: { $set: ct },
+        upsert: true
+      }
+
+    }));
+
+    // Execute bulkWrite
+    await PURCHASE.bulkWrite(bulkOps);
+
+    res.status(200).json({ success: true });
+        
+    } catch (err) {
+        next(err)
+    }
+}
+
+
+
+export const syncExpnese =async (req,res,next)=>{
+    try {
+
+    const expense = req.body;
+
+       const bulkOps = expense.map(ct => ({
+       updateOne: {
+        filter: { _id: new mongoose.Types.ObjectId(ct._id) }, // use same _id offline + online
+        update: { $set: ct },
+        upsert: true
+      }
+
+    }));
+
+    // Execute bulkWrite
+    await EXPENSE.bulkWrite(bulkOps);
+
+    res.status(200).json({ success: true });
+        
+    } catch (err) {
+        next(err)
+    }
+}
+
+
+export const syncRider =async (req,res,next)=>{
+    try {
+
+    const rider = req.body;
+
+       const bulkOps = rider.map(ct => ({
+       updateOne: {
+        filter: { _id: new mongoose.Types.ObjectId(ct._id) }, // use same _id offline + online
+        update: { $set: ct },
+        upsert: true
+      }
+
+    }));
+
+    // Execute bulkWrite
+    await RIDER.bulkWrite(bulkOps);
+
+    res.status(200).json({ success: true });
+        
+    } catch (err) {
+        next(err)
+    }
+}
+
+
+export const syncPartner =async (req,res,next)=>{
+    try {
+
+    const partner = req.body;
+
+       const bulkOps = partner.map(ct => ({
+       updateOne: {
+        filter: { _id: new mongoose.Types.ObjectId(ct._id) }, // use same _id offline + online
+        update: { $set: ct },
+        upsert: true
+      }
+
+    }));
+
+    // Execute bulkWrite
+    await PARTNER.bulkWrite(bulkOps);
+
+    res.status(200).json({ success: true });
+        
+    } catch (err) {
+        next(err)
+    }
+}
+
+
+export const syncDividend =async (req,res,next)=>{
+    try {
+
+    const dividend = req.body;
+
+       const bulkOps = dividend.map(ct => ({
+       updateOne: {
+        filter: { _id: new mongoose.Types.ObjectId(ct._id) }, // use same _id offline + online
+        update: { $set: ct },
+        upsert: true
+      }
+
+    }));
+
+    // Execute bulkWrite
+    await DEVIDEND.bulkWrite(bulkOps);
 
     res.status(200).json({ success: true });
         
