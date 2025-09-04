@@ -126,11 +126,10 @@ const foodSchema =new mongoose.Schema({
       },
 
       isSynced: { type: Boolean, default: false },
-      syncedAt: { type: Date }
+      syncedAt: { type: Date },
+      createdAt: { type: Date }
   
-},{
-    timestamps:true
-})
+},{ timestamps: { createdAt: false, updatedAt: true } })
 
 foodSchema.index(
   { foodName: 1, restaurantId: 1},

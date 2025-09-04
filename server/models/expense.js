@@ -80,9 +80,10 @@ const expenseSchema = new mongoose.Schema(
       type:String
     },
       isSynced: { type: Boolean, default: false },
-      syncedAt: { type: Date }
+      syncedAt: { type: Date },
+      createdAt: { type: Date }
   },
-  { timestamps: true }
+{ timestamps: { createdAt: false, updatedAt: true } }
 );
 
 expenseSchema.index({ createdAt: -1 });

@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAPI, syncAccounts, syncAdmin, syncCategory, syncCombo, syncComboGroups, syncCustomer, syncCustomerTypes, syncDividend, syncExpnese, syncFloors, syncFood, syncIngredients, syncKitchen, syncMenuType, syncNormalUser, syncOrders, syncPartner, syncPaymentRecord, syncPurchase, syncRestaurnat, syncRider, syncSupplier, syncTables, syncTransaction } from '../controller/syncCntrl/sync.js';
+import { deletePartnerSync, getAPI, syncAccounts, syncAdmin, syncCategory, syncCombo, syncComboGroups, syncCustomer, syncCustomerTypes, syncDividend, syncExpnese, syncFloors, syncFood, syncIngredients, syncKitchen, syncMenuType, syncNormalUser, syncOrders, syncPartner, syncPaymentRecord, syncPurchase, syncRestaurnat, syncRider, syncSupplier, syncTables, syncTransaction } from '../controller/syncCntrl/sync.js';
 import multer from 'multer';
 import path from 'path';
 import { LoginUser } from '../controller/User/userAuth.js';
@@ -87,6 +87,7 @@ router.get('/reports/customerType-sale',VerifyToken,getCustomerTypeWiseSalesRepo
 router.get('/daily-sale/pdf',VerifyToken,generateDailySalesPDF);
 router.get('/category-sale/pdf',VerifyToken,generateCategorySalesPDF);
 router.get('/item-sale/pdf',VerifyToken,generateItemWiseSalesPDF);
+router.get('/expense/pdf',VerifyToken,generateExpenseReportPDF)
 router.get('/customertype-sale/pdf',VerifyToken,generateCustomerTypeWisePDF)
 //excel
 router.get('/category-sales/excel',VerifyToken,categorySalesExcel)
@@ -126,7 +127,6 @@ router.get('/daily-transaction/pdf',VerifyToken,getDailyTransactionPDF)
 router.get('/reports/purchase',VerifyToken,getPurchaseReport);
 router.get('/reports/expanse',VerifyToken,getExpenseReport);
 router.get('/purchase/pdf',VerifyToken,generatePurchaseReportPDF);
-router.get('/expense/pdf',VerifyToken,generateExpenseReportPDF)
 //excel
 router.get('/purchase/excel',VerifyToken,purchaseReportExcel)
 router.get('/expense/excel',VerifyToken,expenseReportExcel);
@@ -144,6 +144,8 @@ router.get('/profit-loss/pdf',VerifyToken,profitandLossPdf);
 router.get('/profit-loss/excel',VerifyToken,profitAndLossExcel);
 
 
+//delte partner 
+router.post('/delete-partner', deletePartnerSync);
 
 
 export default router;

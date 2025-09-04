@@ -25,10 +25,9 @@ const partnerDividendPayoutSchema = new mongoose.Schema({
   createdById: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   createdBy: String,
   isSynced: { type: Boolean, default: false },
-syncedAt: { type: Date }
-},{
-    timestamps:true
-}); 
+syncedAt: { type: Date },
+createdAt: { type: Date }
+},{ timestamps: { createdAt: false, updatedAt: true } }); 
 
  const devidentModel = mongoose.model("DividendPayout", partnerDividendPayoutSchema);
  export default devidentModel;

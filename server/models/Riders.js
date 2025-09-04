@@ -31,9 +31,10 @@ const riderSchema = new mongoose.Schema({
   createdBy: {
     type: String
   },
+  createdAt: { type: Date },
         isSynced: { type: Boolean, default: false },
       syncedAt: { type: Date }
-}, { timestamps: true });
+}, { timestamps: { createdAt: false, updatedAt: true } });
 
  const riderModel =  mongoose.model("Rider", riderSchema);
  export default riderModel;

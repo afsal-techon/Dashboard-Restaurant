@@ -70,6 +70,7 @@ export const syncRestaurnat =async (req,res,next)=>{
 }
 
 
+
 export const syncCustomerTypes =async (req,res,next)=>{
     try {
 
@@ -199,17 +200,24 @@ export const syncCategory =async (req,res,next)=>{
 
     const cateogry = req.body;
 
-       const bulkOps = cateogry.map(ct => ({
-       updateOne: {
-        filter: { _id: new mongoose.Types.ObjectId(ct._id) }, // use same _id offline + online
-        update: { $set: ct },
-        upsert: true
-      }
+ const bulkOps = cateogry.map(ct => {
+  const updateDoc = { ...ct };
 
-    }));
+  // Preserve offline createdAt if available
+  if (ct.createdAt) {
+    updateDoc.createdAt = new Date(ct.createdAt);
+  }
 
-    // Execute bulkWrite
-    await CATEGORY.bulkWrite(bulkOps);
+  return {
+    updateOne: {
+      filter: { _id: new mongoose.Types.ObjectId(ct._id) },
+      update: { $set: updateDoc },
+      upsert: true
+    }
+  };
+});
+
+await CATEGORY.bulkWrite(bulkOps)
 
     res.status(200).json({ success: true });
         
@@ -608,6 +616,25 @@ export const syncDividend =async (req,res,next)=>{
     await DEVIDEND.bulkWrite(bulkOps);
 
     res.status(200).json({ success: true });
+        
+    } catch (err) {
+        next(err)
+    }
+}
+
+
+export const deletePartnerSync  =async (req,res,next)=>{
+    try {
+
+     const { _id } = req.body;
+     console.log(_id,'andi adi')
+
+    const partner = await PARTNER.findByIdAndDelete(_id);
+    if (!partner) {
+      res.status(404).json({ message: "Partner not found" });
+    }
+
+     res.status(200).json({ message: "Partner deleted successfully (online)" });
         
     } catch (err) {
         next(err)

@@ -62,11 +62,10 @@ accountType: {
           type:String,
       },
       isSynced: { type: Boolean, default: false },
-      syncedAt: { type: Date }
+      syncedAt: { type: Date },
+      createdAt: { type: Date }
     
-},{
-    timestamps:true
-});
+},{ timestamps: { createdAt: false, updatedAt: true } });
 
 accountSchema.index({ restaurantId: 1 });
 accountSchema.index({ parentAccountId: 1 });

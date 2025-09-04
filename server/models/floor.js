@@ -21,13 +21,12 @@ const floorSchema =new mongoose.Schema({
           type:String,
       },
       isSynced: { type: Boolean, default: false },
-      syncedAt: { type: Date }
+      syncedAt: { type: Date },
+      createdAt: { type: Date }
    
   
     
-},{
-    timestamps:true
-})
+},{ timestamps: { createdAt: false, updatedAt: true } })
 
 // Index to optimize queries involving restaurantId and soft delete checks
 floorSchema.index(

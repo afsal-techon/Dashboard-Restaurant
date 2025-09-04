@@ -81,9 +81,10 @@ const purchaseSchema = new mongoose.Schema(
       ref: "User",
     },
           isSynced: { type: Boolean, default: false },
-      syncedAt: { type: Date }
+      syncedAt: { type: Date },
+      createdAt: { type: Date }
   },
-  { timestamps: true }
+{ timestamps: { createdAt: false, updatedAt: true } }
 );
 
 purchaseSchema.index({ createdAt: -1 });

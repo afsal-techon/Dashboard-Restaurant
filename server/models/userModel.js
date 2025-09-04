@@ -42,9 +42,10 @@ const userSchema = new mongoose.Schema(
 
     status: { type: Boolean, default: true },
           isSynced: { type: Boolean, default: false },
-      syncedAt: { type: Date }
+      syncedAt: { type: Date },
+      createdAt: { type: Date }
   },
-  { timestamps: true }
+ { timestamps: { createdAt: false, updatedAt: true } }
 );
 
 userSchema.index({ restaurantId: 1 });

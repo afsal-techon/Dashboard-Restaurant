@@ -25,11 +25,12 @@ const restaurantSchema = new mongoose.Schema(
         currency: { type: String ,default:null },
         currencySymbol: { type: String,default:null },
               isSynced: { type: Boolean, default: false },
-      syncedAt: { type: Date }
+      syncedAt: { type: Date },
+      createdAt: { type: Date }
 
     },
     
-    { timestamps: true }
+   { timestamps: { createdAt: false, updatedAt: true } }
 );
 
 //  Index for performance on isDeleted filtering

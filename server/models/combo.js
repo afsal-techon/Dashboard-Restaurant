@@ -39,12 +39,11 @@ const comboSchema = new mongoose.Schema({
       },
 
             isSynced: { type: Boolean, default: false },
-      syncedAt: { type: Date }
+      syncedAt: { type: Date },
+      createdAt: { type: Date }
   
 
-},{
-    timestamps:true,
-});
+},{ timestamps: { createdAt: false, updatedAt: true } });
 
 comboSchema.index(
   { comboName: 1, restaurantId: 1}

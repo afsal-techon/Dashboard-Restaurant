@@ -15,10 +15,9 @@ const partnerSchema = new mongoose.Schema({
     max: 100,
   },
         isSynced: { type: Boolean, default: false },
-      syncedAt: { type: Date }
-},{
-    timestamps:true
-});
+      syncedAt: { type: Date },
+      createdAt: { type: Date }
+},{ timestamps: { createdAt: false, updatedAt: true } });
 
 const partnerModel = mongoose.model("Partner", partnerSchema);
 export default partnerModel;

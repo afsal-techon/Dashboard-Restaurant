@@ -55,10 +55,9 @@ const tableSchema  =new mongoose.Schema({
             deletedById: { type: mongoose.Schema.Types.ObjectId, ref: "User" ,default:null },
             deletedBy: { type: String, default: null },
       isSynced: { type: Boolean, default: false },
-      syncedAt: { type: Date }
-},{
-    timestamps:true
-})
+      syncedAt: { type: Date },
+      createdAt: { type: Date }
+},{ timestamps: { createdAt: false, updatedAt: true } })
 
 tableSchema.index(
     { name: 1, floorId: 1, restaurantId: 1 },
