@@ -800,6 +800,7 @@ export const purchaseReportExcel = async (req, res, next) => {
 
     // Header
     const headerRow = worksheet.addRow([
+       "S.No",
       "Date",
       "Reference No",
       "Account Type",
@@ -814,8 +815,10 @@ export const purchaseReportExcel = async (req, res, next) => {
     });
 
     // Rows
-    transactions.forEach((txn) => {
+    let totalAmount = 0;
+    transactions.forEach((txn, index) => {
       worksheet.addRow([
+        index + 1, // S.No
         txn.date,
         txn.referenceId || "-",
         txn.accountType || "-",
@@ -824,19 +827,30 @@ export const purchaseReportExcel = async (req, res, next) => {
         txn.supplier || "-",
         txn.amount || 0
       ]);
+      totalAmount += txn.amount || 0;
+    });
+
+       // Add Total Row
+    const totalRow = worksheet.addRow([
+      "", "", "", "", "", "", "Total:", totalAmount
+    ]);
+    totalRow.eachCell((cell, colNumber) => {
+      if (colNumber >= 7) {
+        cell.font = { bold: true };
+      }
     });
 
     // Column Widths
     worksheet.columns = [
-      { width: 12 },
-      { width: 20 },
-      { width: 15 },
-      { width: 25 },
-      { width: 20 },
-      { width: 25 },
-      { width: 12 }
+      { width: 6 },   // S.No
+      { width: 12 },  // Date
+      { width: 20 },  // Reference No
+      { width: 15 },  // Account Type
+      { width: 25 },  // Account Name
+      { width: 20 },  // Payment Method
+      { width: 25 },  // Supplier
+      { width: 15 }   // Amount
     ];
-
     // Send Excel
     res.setHeader(
       "Content-Type",
@@ -1003,6 +1017,7 @@ export const expenseReportExcel = async (req, res, next) => {
 
     // Header
     const header = [
+        "S.No",
       "Date",
       "Reference No",
       "Account Type",
@@ -1018,8 +1033,10 @@ export const expenseReportExcel = async (req, res, next) => {
     });
 
     // Rows
-    transactions.forEach(txn => {
+    let totalAmount = 0;
+    transactions.forEach((txn, index) => {
       worksheet.addRow([
+        index + 1,
         txn.date || "-",
         txn.referenceId || "-",
         txn.accountType || "-",
@@ -1028,17 +1045,27 @@ export const expenseReportExcel = async (req, res, next) => {
         txn.supplier || "-",
         txn.amount || 0
       ]);
+      totalAmount += txn.amount || 0;
+    });
+
+     // Total Row
+    const totalRow = worksheet.addRow([
+      "", "", "", "", "", "", "Total:", totalAmount
+    ]);
+    totalRow.eachCell((cell, colNumber) => {
+      if (colNumber >= 7) cell.font = { bold: true };
     });
 
     // Column Widths
     worksheet.columns = [
-      { width: 12 },
-      { width: 20 },
-      { width: 15 },
-      { width: 25 },
-      { width: 20 },
-      { width: 25 },
-      { width: 12 }
+      { width: 6 },   // S.No
+      { width: 12 },  // Date
+      { width: 20 },  // Reference No
+      { width: 15 },  // Account Type
+      { width: 25 },  // Account Name
+      { width: 20 },  // Payment Method
+      { width: 25 },  // Supplier
+      { width: 15 }   // Amount
     ];
 
     // Download
